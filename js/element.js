@@ -35,11 +35,11 @@ function createGalleryCardsMark(gallery) {
 }
 
 function onGalleryOpenClick(evt) {
-  window.addEventListener('keydown', onEscKeyPress);
-  window.addEventListener('keydown', onArrowRightKeyPress);
-  window.addEventListener('keydown', onArrowLeftKeyPress);
-
   evt.preventDefault();
+
+  window.addEventListener('keydown', onEscKeyPress);
+  // window.addEventListener('keydown', onArrowRightKeyPress);
+  // window.addEventListener('keydown', onArrowLeftKeyPress);
 
   const isGalleryImageEl = evt.target.classList.contains('gallery__image');
   if (!isGalleryImageEl) {
@@ -57,7 +57,6 @@ function addClassList() {
 }
 
 function onCloseModal() {
-  evt.preventDefault();
 
   removeClassList();
   lightboxImagesRef.src = ``;
@@ -70,7 +69,6 @@ function removeClassList() {
 }
 
 function onEscKeyPress(evt) {
-  evt.preventDefault();
   if (evt.code === `Escape`) {
     onCloseModal();
   }
