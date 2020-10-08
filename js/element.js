@@ -1,49 +1,65 @@
 import gallery from './gallery-items.js';
 
-console.log(createGalleryCardsMark(gallery));
+const galleryConteiner = document.querySelector('.js-gallery');
+const gallerysMarkup = createGalleryCardsMark(gallery);
+const btnModalClose = document.querySelector(`[data-action='close-lightbox']`);
+
+btnModalClose.addEventListener('click', onCloseModal);
+
+galleryConteiner.insertAdjacentHTML('beforeend', gallerysMarkup);
+
+galleryConteiner.addEventListener('click', onGalleryClick);
 
 function createGalleryCardsMark(gallery) {
   return gallery
-    .map(gallery => {
-      return `
-      <li class="gallery__item">
-        <a
-            class="gallery__link"
-            href="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546_1280.jpg"
-        >
+    .map(({ original, preview, description }) => {
+      return `<li class="gallery__item">
+      <a
+        class="gallery__link"
+        href="${original}"
+      >
         <img
-        class="gallery__image"
-        src="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546__340.jpg"
-        data-source="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546_1280.jpg"
-        alt="Tulips"
+          class="gallery__image"
+          src="${preview}"
+          data-source="${original}"
+          alt="${description}"
         />
-        </a>
-      </li>
-        `;
+      </a>
+    </li>`;
     })
     .join('');
 }
 
-// const lightboxRef = document.querySelector('.lightbox');
+function onGalleryClick(evt) {
+  evt.preventDefault();
 
-// console.log(lightboxRef);
+  const isGalleryImageEl = evt.target.classList.contains('gallery__image');
+  if (!isGalleryImageEl) {
+    return;
+  }
 
-// console.log(galleries[0]);
-// console.log(galleries[0].original);
+  addClassList();
 
-/*`<li class="gallery__item">
-  <a
-    class="gallery__link"
-    href="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546_1280.jpg"
-  >
-    <img
-      class="gallery__image"
-      src="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546__340.jpg"
-      data-source="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546_1280.jpg"
-      alt="Tulips"
-    />
-  </a>
-</li>
-`;
+  // setImageGalleryModalWindow();
+  const lightboxImagesRef = document.querySelector('.lightbox__image');
+  lightboxImagesRef.src = evt.target.dataset.source;
+  lightboxImagesRef.alt = evt.target.alt;
+}
 
-*/
+function addClassList() {
+  document.querySelector('.lightbox').classList.add('is-open');
+}
+
+function onCloseModal() {
+  removeClassList();
+}
+
+function removeClassList() {
+  document.querySelector('.lightbox').classList.remove('is-open');
+}
+
+// function setImageGalleryModalWindow() {
+//   const lightboxImagesRef = document.querySelector('.lightbox__image');
+//   lightboxImagesRef.src = evt.target.dataset.source;
+//   lightboxImagesRef.alt = evt.target.alt;
+// }
