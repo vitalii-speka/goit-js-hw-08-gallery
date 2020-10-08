@@ -57,6 +57,8 @@ function addClassList() {
 }
 
 function onCloseModal() {
+  evt.preventDefault();
+
   removeClassList();
   lightboxImagesRef.src = ``;
   lightboxImagesRef.alt = ``;
@@ -68,6 +70,7 @@ function removeClassList() {
 }
 
 function onEscKeyPress(evt) {
+  evt.preventDefault();
   if (evt.code === `Escape`) {
     onCloseModal();
   }
