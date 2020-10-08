@@ -60,6 +60,7 @@ function onCloseModal() {
   removeClassList();
   lightboxImagesRef.src = ``;
   lightboxImagesRef.alt = ``;
+  window.removeEventListener('keydown', onEscKeyPress);
 }
 
 function removeClassList() {
@@ -72,19 +73,19 @@ function onEscKeyPress(evt) {
   }
 }
 
+/* не готовы
 function onArrowRightKeyPress(evt) {
   if (evt.code === `ArrowRight`) {
-    console.log(evt.previousElementSibling);
-    console.dir(lightboxImagesRef);
-    // console.log(gallery.scr);
-    gallery.original = lightboxImagesRef.src;
-    gallery.description = lightboxImagesRef.alt;
+    console.log(evt.original);
+    // lightboxImagesRef.src = gallery.original;
+    // gallery.description = lightboxImagesRef.alt;
   }
 }
-// console.log(gallery[0]);
+
 
 function onArrowLeftKeyPress(evt) {
   if (evt.code === `ArrowLeft`) {
     console.log(evt.code);
   }
 }
+*/
