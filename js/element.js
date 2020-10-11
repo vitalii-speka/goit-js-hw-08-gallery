@@ -63,8 +63,12 @@ function removeClassList() {
 function onCloseModal() {
   removeClassList();
 
-  lightboxImagesRef.src = ``;
-  lightboxImagesRef.alt = ``;
+  // lightboxImagesRef.src = ``;
+  // lightboxImagesRef.alt = ``;
+
+  lightboxImagesRef.removeAttribute('src');
+  lightboxImagesRef.removeAttribute('alt');
+
   
   window.removeEventListener('keydown', onEscKeyPress);
 }
@@ -74,35 +78,32 @@ function onEscKeyPress(evt) {
     onCloseModal();
   }
 }
-function onArrowRightKeyPress(evt) {
-  if (evt.code === `ArrowRight`) {
-    const i = gallery;
-    console.log(i);
-    console.log(lightboxImagesRef.src)
-    // lightboxImagesRef.src = gallery.original;
-    // gallery.description = lightboxImagesRef.alt;
+
+let imagesOriginalArr = [];
+gallery.forEach((item) => {
+  imagesOriginalArr.push(item.original);
+});
+
+function onArrowRightKeyPress(e) {
+  let index = imagesOriginalArr.indexOf(lightboxImagesRef.src);
+  
+  if (e.code === `ArrowRight`) {
+    if (index < imagesOriginalArr.length - 1) {
+      console.log(imagesOriginalArr.length - 1);
+      const xxx = imagesOriginalArr[index + 1];
+      console.log(xxx);
+      console.log(imagesOriginalArr[1 + 1]);
+      lightboxImagesRef.setAttribute("src", imagesOriginalArr[index + 1]);
+    } else {
+      index = -1;
+      lightboxImagesRef.setAttribute("src", imagesOriginalArr[index + 1]);
+    }
+  }
+
+  if (e.code === `ArrowLeft`) {
+    if (index === 0) {
+      index = imagesOriginalArr.length;
+      lightboxImagesRef.setAttribute("src", imagesOriginalArr[index - 1]);
+    } else lightboxImagesRef.setAttribute("src", imagesOriginalArr[index - 1]);
   }
 }
-
-// clickLightbox: function () {
-//     this.nextImage = !!this.currentImage.parentElement.parentElement.nextElementSibling ? this.currentImage.parentElement.parentElement.nextElementSibling.querySelector("img") : this.initialImage;
-//     this.modalImageRef.src = this.nextImage.dataset.source;
-//     this.currentImage = this.nextImage;
-//   },
-
-/* не готовы
-function onArrowRightKeyPress(evt) {
-  if (evt.code === `ArrowRight`) {
-    console.log(evt.original);
-    // lightboxImagesRef.src = gallery.original;
-    // gallery.description = lightboxImagesRef.alt;
-  }
-}
-
-
-function onArrowLeftKeyPress(evt) {
-  if (evt.code === `ArrowLeft`) {
-    console.log(evt.code);
-  }
-}
-*/
