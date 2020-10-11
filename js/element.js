@@ -38,7 +38,7 @@ function onGalleryOpenClick(evt) {
   evt.preventDefault();
 
   window.addEventListener('keydown', onEscKeyPress);
-  // window.addEventListener('keydown', onArrowRightKeyPress);
+  window.addEventListener('keydown', onArrowRightKeyPress);
   // window.addEventListener('keydown', onArrowLeftKeyPress);
 
   const isGalleryImageEl = evt.target.classList.contains('gallery__image');
@@ -56,16 +56,17 @@ function addClassList() {
   document.querySelector('.lightbox').classList.add('is-open');
 }
 
-function onCloseModal() {
-
-  removeClassList();
-  lightboxImagesRef.src = ``;
-  lightboxImagesRef.alt = ``;
-  window.removeEventListener('keydown', onEscKeyPress);
-}
-
 function removeClassList() {
   document.querySelector('.lightbox').classList.remove('is-open');
+}
+
+function onCloseModal() {
+  removeClassList();
+
+  lightboxImagesRef.src = ``;
+  lightboxImagesRef.alt = ``;
+  
+  window.removeEventListener('keydown', onEscKeyPress);
 }
 
 function onEscKeyPress(evt) {
@@ -73,6 +74,21 @@ function onEscKeyPress(evt) {
     onCloseModal();
   }
 }
+function onArrowRightKeyPress(evt) {
+  if (evt.code === `ArrowRight`) {
+    const i = gallery;
+    console.log(i);
+    console.log(lightboxImagesRef.src)
+    // lightboxImagesRef.src = gallery.original;
+    // gallery.description = lightboxImagesRef.alt;
+  }
+}
+
+// clickLightbox: function () {
+//     this.nextImage = !!this.currentImage.parentElement.parentElement.nextElementSibling ? this.currentImage.parentElement.parentElement.nextElementSibling.querySelector("img") : this.initialImage;
+//     this.modalImageRef.src = this.nextImage.dataset.source;
+//     this.currentImage = this.nextImage;
+//   },
 
 /* не готовы
 function onArrowRightKeyPress(evt) {
