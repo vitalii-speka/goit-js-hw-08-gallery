@@ -86,13 +86,14 @@ gallery.forEach((item) => {
 
 function onArrowRightKeyPress(e) {
   let index = imagesOriginalArr.indexOf(lightboxImagesRef.src);
-  
+  console.log(index);
+  console.log(imagesOriginalArr.length);
+  console.log(imagesOriginalArr[index + 1]);
+  console.log(imagesOriginalArr[1 + 1]);
+
+
   if (e.code === `ArrowRight`) {
     if (index < imagesOriginalArr.length - 1) {
-      console.log(imagesOriginalArr.length - 1);
-      const xxx = imagesOriginalArr[index + 1];
-      console.log(xxx);
-      console.log(imagesOriginalArr[1 + 1]);
       lightboxImagesRef.setAttribute("src", imagesOriginalArr[index + 1]);
     } else {
       index = -1;
